@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	_ "github.com/alramdein/heroku-example/docs" // Import generated docs
 
@@ -32,8 +33,13 @@ func main() {
 	// Swagger route
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8112" // default
+	}
+
 	// Start server
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":" + port))
 }
 
 // List Users lists all existing users
@@ -53,8 +59,9 @@ func UserHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"users": []interface{}{
 			map[string]interface{}{
-				"name":  "Alif",
-				"email": "alif@go.dev",
+				"name":         "Alif",
+				"email":        "alif@go.dev",
+				"ini_dari_cfg": os.Getenv("INI_DARI_CFG"),
 			},
 		},
 	})
