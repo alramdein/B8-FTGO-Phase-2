@@ -1,7 +1,7 @@
 package main
 
 import (
-	"net/http"
+	"net/http" // MUX
 	"os"
 
 	_ "github.com/alramdein/heroku-example/docs" // Import generated docs
@@ -26,6 +26,7 @@ type HTTPError struct {
 // @host localhost:8080
 // @BasePath /
 func main() {
+	mux := http.NewServeMux()
 	e := echo.New()
 
 	e.GET("/users", UserHandler)
