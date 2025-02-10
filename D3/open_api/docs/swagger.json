@@ -1,88 +1,31 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Really high-performance API FTGO Batch 8",
-        "title": "API FTGO Batch 8",
+        "description": "This is a sample API using net/http with Swagger.",
+        "title": "Example API",
         "contact": {},
         "version": "1.0"
     },
     "host": "localhost:8080",
-    "basePath": "/",
+    "basePath": "/api",
     "paths": {
-        "/users": {
+        "/sample": {
             "get": {
-                "description": "get users",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "Returns a JSON response",
                 "produces": [
                     "application/json"
                 ],
-                "tags": [
-                    "users"
-                ],
-                "summary": "List users",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "format": "email",
-                        "description": "name search by q",
-                        "name": "q",
-                        "in": "query"
-                    }
-                ],
+                "summary": "Get a sample response",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/main.User"
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/main.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/main.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/main.HTTPError"
-                        }
                     }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "main.HTTPError": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "main.User": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
                 }
             }
         }

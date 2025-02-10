@@ -1,59 +1,22 @@
-basePath: /
-definitions:
-  main.HTTPError:
-    properties:
-      code:
-        type: integer
-      message:
-        type: string
-    type: object
-  main.User:
-    properties:
-      email:
-        type: string
-      name:
-        type: string
-    type: object
+basePath: /api
 host: localhost:8080
 info:
   contact: {}
-  description: Really high-performance API FTGO Batch 8
-  title: API FTGO Batch 8
+  description: This is a sample API using net/http with Swagger.
+  title: Example API
   version: "1.0"
 paths:
-  /users:
+  /sample:
     get:
-      consumes:
-      - application/json
-      description: get users
-      parameters:
-      - description: name search by q
-        format: email
-        in: query
-        name: q
-        type: string
+      description: Returns a JSON response
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            items:
-              $ref: '#/definitions/main.User'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/main.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/main.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/main.HTTPError'
-      summary: List users
-      tags:
-      - users
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get a sample response
 swagger: "2.0"

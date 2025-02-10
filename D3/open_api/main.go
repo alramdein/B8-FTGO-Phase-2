@@ -1,60 +1,38 @@
 package main
 
 import (
-	_ "hacktiv/docs" // Import generated docs
+	"encoding/json"
+	"fmt"
 	"net/http"
 
-	"github.com/labstack/echo/v4"
-	echoSwagger "github.com/swaggo/echo-swagger"
+	_ "hacktiv/docs" // Import generated docs
+
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
-type User struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
-}
-
-type HTTPError struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
-}
-
-// @title API FTGO Batch 8
+// @title Example API
 // @version 1.0
-// @description Really high-performance API FTGO Batch 8
+// @description This is a sample API using net/http with Swagger.
 // @host localhost:8080
-// @BasePath /
+// @BasePath /api
+
+// @Summary Get a sample response
+// @Description Returns a JSON response
+// @Produce json
+// @Success 200 {object} map[string]string
+// @Router /sample [get]
+func sampleHandler(w http.ResponseWriter, r *http.Request) {
+	response := map[string]string{"message": "Hello, Swagger with net/http!"}
+	json.NewEncoder(w).Encode(response)
+}
+
 func main() {
-	e := echo.New()
+	// Generate Swagger docs
+	http.HandleFunc("/api/sample", sampleHandler)
 
-	e.GET("/users", UserHandler)
-
-	// Swagger route
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	// Serve Swagger UI
+	http.Handle("/swagger/", httpSwagger.WrapHandler)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":8080"))
-}
-
-// List Users lists all existing users
-//
-//	@Summary      List users
-//	@Description  get users
-//	@Tags         users
-//	@Accept       json
-//	@Produce      json
-//	@Param        q    query     string  false  "name search by q"  Format(email)
-//	@Success      200  {array}   User
-//	@Failure      400  {object}  HTTPError
-//	@Failure      404  {object}  HTTPError
-//	@Failure      500  {object}  HTTPError
-//	@Router       /users [get]
-func UserHandler(c echo.Context) error {
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"users": []interface{}{
-			map[string]interface{}{
-				"name":  "Alif",
-				"email": "alif@go.dev",
-			},
-		},
-	})
+	fmt.Println(http.ListenAndServe(":3333", nil).Error())
 }
