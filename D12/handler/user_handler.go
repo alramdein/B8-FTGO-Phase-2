@@ -68,7 +68,7 @@ func (u userHandler) GetAllUserHandler(c echo.Context) error {
 		})
 	}
 
-	return echo.NewHTTPError(http.StatusOK, map[string]interface{}{
+	return c.JSON(http.StatusOK, map[string]interface{}{
 		"users": users,
 	})
 }

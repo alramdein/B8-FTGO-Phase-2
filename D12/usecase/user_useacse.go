@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"fmt"
 	"hacktiv/model"
 
 	"hacktiv/repository"
@@ -35,7 +36,14 @@ func (u *userUsecase) CreateUser(ctx context.Context, user model.User) error {
 func (u *userUsecase) GetAllUsers(ctx context.Context) ([]model.User, error) {
 	// berisi logic business (validation, etc)
 	// ....
-	return u.userRepo.GetAllUsers(ctx)
+	var users []model.User
+	users, err := u.userRepo.GetAllUsers(ctx)
+	if err != nil {
+		fmt.Println(err)
+		return users, err
+	}
+
+	return users, nil
 }
 
 func (u *userUsecase) DeleteUser(ctx context.Context, id int64) error {

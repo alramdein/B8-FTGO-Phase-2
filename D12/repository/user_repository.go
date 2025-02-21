@@ -54,7 +54,7 @@ func (u *userRepository) CreateUser(ctx context.Context, user model.User) error 
 
 func (u *userRepository) GetAllUsers(ctx context.Context) ([]model.User, error) {
 	var users []model.User
-	res := u.db.Preload("Role").First(&users)
+	res := u.db.Find(&users)
 	if res.Error != nil {
 		fmt.Println(res.Error)
 		return nil, res.Error

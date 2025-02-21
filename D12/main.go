@@ -7,7 +7,6 @@ import (
 	"hacktiv/model"
 	"hacktiv/repository"
 	"hacktiv/usecase"
-	"hacktiv/utils"
 	"net/http"
 	"os"
 
@@ -56,7 +55,7 @@ func main() {
 	e.Use(echoMiddleware.Recover())
 	e.Use(echoMiddleware.Gzip())
 
-	e.HTTPErrorHandler = utils.HTTPErrorHandler
+	// e.HTTPErrorHandler = utils.HTTPErrorHandler
 
 	e.GET("/error", func(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusPreconditionFailed, handler.ErrUserIsNotSuperadmin)
@@ -71,7 +70,7 @@ func main() {
 
 	userHandler.RegisterUserRoutes(e)
 
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":5665"))
 }
 
 func ComposeConnStr() string {
